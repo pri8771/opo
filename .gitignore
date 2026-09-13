@@ -40,3 +40,6 @@ next-env.d.ts
 *.tsbuildinfo
 /operator/config.json
 *.secret.xml
+
+__pycache__/
+*.pyc

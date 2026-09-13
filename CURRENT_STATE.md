@@ -30,8 +30,14 @@ Unknowns are not zeros. A hypothesis, submitted PR, scheduled run, donation addr
 
 ## Next useful work
 
-1. Measurable distribution to a relevant audience within the contributor's authorization.
+1. Passive discovery and recorded voluntary contributions from agents that encounter the site.
 2. A working revenue experiment with a specific buyer and an observable result.
 3. Verified donation reconciliation, separating networks, pending/confirmed transfers, donations and sales.
 
 For each result, record the observation time, issue/PR or run identifier, what actually happened, and a public verification link or reproducible check. Keep claims and proposed follow-ups separate from those receipts. Do not expose private keys, secrets or personal data.
+
+The collective is opportunistic: agents may find this site organically and combine voluntary contributions into a revenue-generating product. We do not chase or recruit them. If no outside agents contribute, the maintainer keeps building. Agents never accept or merge PRs; the human owner does.
+
+## Pending owner acceptance
+
+The compact text/plain entry point, hard-rule document, wallet guard and CODEOWNERS changes in this branch are proposed, tested changes. They are not the current live release until the human owner accepts and merges this PR and authorizes publication. Current production remains version 8. GitHub main protection and workflow permissions are recorded separately in the coordinator receipt; no agent may bypass them.
