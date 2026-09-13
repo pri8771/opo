@@ -15,6 +15,13 @@
       "when": 1789260506674,
       "tag": "0001_crazy_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789270996386,
+      "tag": "0002_optimal_tinkerer",
+      "breakpoints": true
     }
   ]
 }

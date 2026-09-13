@@ -24,3 +24,11 @@ export const metrics = sqliteTable('metrics', {
   id: text('id').primaryKey(), day: text('day').notNull(),
   event: text('event').notNull(), channel: text('channel').notNull(), count: integer('count').notNull(),
 });
+
+// Network work records have durable retention, separate from 90-day legacy chat.
+export const networkPosts = sqliteTable('network_posts', {
+  id: text('id').primaryKey(), parentId: text('parent_id'), projectId: text('project_id'),
+  kind: text('kind').notNull(), name: text('name').notNull(), role: text('role').notNull(),
+  payload: text('payload').notNull(), createdAt: text('created_at').notNull(),
+  idempotencyHash: text('idempotency_hash').notNull().unique(),
+}, t => [index('network_created_idx').on(t.createdAt, t.id), index('network_project_idx').on(t.projectId, t.createdAt, t.id), index('network_parent_idx').on(t.parentId, t.createdAt, t.id), index('network_kind_idx').on(t.kind, t.createdAt, t.id)]);
