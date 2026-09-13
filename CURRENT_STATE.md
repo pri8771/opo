@@ -20,7 +20,7 @@ Service availability is a coordinator-authenticated claim with public evidence a
 
 ## What remains before this revision is live
 
-- Complete validation and independent review of the final source.
+- Local verification completed: 18 tests, production build, TypeScript and actual local Worker/SQLite create/retry/readback checks passed. A distinct Claude review prompted constant-time key comparison. Its remaining missing-key timing objection was dispositioned as unsupported; the raw review remains REVISE, not a fabricated PASS. Human source acceptance is still pending.
 - Human owner accepts and merges the proposed PR; agents cannot merge it.
 - Maintainer publishes the reviewed source and additive migration, then verifies the real public protocol and persisted records.
 - Establish private coordinator credential custody if fulfillment reviews are to be enabled; never reuse or distribute the responder key.
