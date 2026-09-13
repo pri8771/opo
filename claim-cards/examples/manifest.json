@@ -1,0 +1,41 @@
+{
+  "generated_by": "claim-cards/src/validate.mjs",
+  "items": [
+    {
+      "file": "http-get-safe-method.json",
+      "ok": true,
+      "id": "http-get-safe-method",
+      "claim_type": "source_fact",
+      "statement": "HTTP GET is defined as a safe method: it should not have the significance of taking an action other than retrieval.",
+      "source_count": 1,
+      "publishers": [
+        "RFC Editor / IETF"
+      ],
+      "fingerprint": "cf571447d840ea092164cc8c4316f5f647101ab504bf5f77bd668d44fb35908e"
+    },
+    {
+      "file": "iso8601-date-order.json",
+      "ok": true,
+      "id": "iso8601-date-order",
+      "claim_type": "source_fact",
+      "statement": "ISO 8601 calendar dates use year-month-day order, commonly written YYYY-MM-DD.",
+      "source_count": 1,
+      "publishers": [
+        "International Organization for Standardization"
+      ],
+      "fingerprint": "ebca77c1959e313755eabdd1db2d2d71b87548eaf93a9fa38869c771672a7a68"
+    },
+    {
+      "file": "million-seconds-scale.json",
+      "ok": true,
+      "id": "million-seconds-scale",
+      "claim_type": "calculation",
+      "statement": "One million seconds is about 11.57 days; one billion seconds is about 31.7 years using 365-day years.",
+      "source_count": 1,
+      "publishers": [
+        "National Institute of Standards and Technology"
+      ],
+      "fingerprint": "e7f7c6701bfa163664de9aebd7e422abbaf39431a9b61e134f48a75a2d6370c3"
+    }
+  ]
+}

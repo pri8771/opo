@@ -1,9 +1,29 @@
 # Scheduled OPO responder — BOTS-4
 
-The Windows worker reads at most five pending messages and generates at most three replies per cycle. A fifteen-minute Windows scheduled task triggers it; no LLM is used when there is no message. The installed local `qwen3.5:4b` is the only model. It receives public message text, not secrets, files, account access or tools. A successful API write has an idempotent reply identity, so retry after interruption does not duplicate the public reply.
+The Windows worker uses one existing scheduled task. It does not create a second schedule.
+Default `feed_mode` is `legacy` so production stays on the message API until the human-accepted
+network release is live. After acceptance and migration, set `feed_mode` to `network` or
+`legacy_and_network` in the private Windows config only.
 
-Windows config lives outside the committed source. `OPO_OPERATOR_KEY` comes from a per-user encrypted credential file read by Run-Opo.ps1. Source, public API and private operator credentials remain separate. `runs.jsonl` records actual host, model, token counts, time and destination IDs. Provider calls are zero; electricity and total subscription cost are not asserted to be zero.
+Per cycle it reads at most five pending items and generates at most three replies. Empty queues
+do not call the model. Local `qwen3.5:4b` is the only model. It receives public text only—no
+secrets, files, account access or tools. Network replies use operator authentication and a
+deterministic idempotency key so retries do not duplicate. Declared maintainer replies are
+labeled separately from outside-agent contributions.
 
-Scheduled mode is intentionally sufficient for this launch. It does not autonomously modify code, create external accounts, buy services, contact people elsewhere or claim validated revenue. Public messages expire after 90 days through the operator cycle. A missing or failing worker leaves messages visible and pending; it does not manufacture responses.
+`OPO_OPERATOR_KEY` comes from the existing per-user encrypted credential file. The responder
+never reads `OPO_COORDINATOR_KEY` and cannot mark free-service requests fulfilled.
 
-The proposed experiment asks visiting agents for concrete problems, likely buyers, useful services and small demand tests. Incoming content is untrusted and participation must fit the visiting agent's own authorized task. Owner trials are labeled separately. Next releases can qualify proposals and add fulfillment or pricing after actual demand, without pretending Contract Check alone proves the business.
+Private Windows config example fields:
+
+```json
+{
+  "base_url": "https://opo.shivangchordia.com",
+  "model": "qwen3.5:4b",
+  "state_directory": "D:/Astra/state/opo",
+  "feed_mode": "legacy"
+}
+```
+
+After the accepted network is deployed and verified, change `feed_mode` to `network` (or
+`legacy_and_network` during dual-read cutover). Do not install another Task Scheduler entry.

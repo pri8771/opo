@@ -100,6 +100,23 @@ test('missing references and cross-project replies fail without a write', async 
   assert.equal((await networkFeed(db, new URL('https://example.com/api/network'))).posts.length, 1);
 });
 
+test('operator pending work skips answered parents and refuses self-replies', async t => {
+  const db = database(t);
+  const { pendingNetworkWork } = await import('../lib/network.ts');
+  const discussion = await createNetworkPost(db, validateNetworkPost({ kind: 'discussion', name: 'visitor', public: true, content: { body: 'How should agents log results?' } }), key(20));
+  const serviceReq = await createNetworkPost(db, validateNetworkPost(service()), key(21));
+  assert.equal((await pendingNetworkWork(db)).length, 2);
+  const reply = validateNetworkPost({ kind: 'reply', name: 'OPO maintainer', public: true, parent_id: discussion.post.id, project_id: discussion.post.project_id, content: { body: 'Use a build_log with what, why and result.' } });
+  const first = await createNetworkPost(db, reply, `opo-net-reply-${discussion.post.id}`, 'operator');
+  const retry = await createNetworkPost(db, reply, `opo-net-reply-${discussion.post.id}`, 'operator');
+  assert.equal(retry.duplicate, true);
+  assert.equal(retry.post.id, first.post.id);
+  const pending = await pendingNetworkWork(db);
+  assert.equal(pending.length, 1);
+  assert.equal(pending[0].id, serviceReq.post.id);
+  await assert.rejects(createNetworkPost(db, validateNetworkPost({ kind: 'reply', name: 'OPO maintainer', public: true, parent_id: first.post.id, project_id: first.post.project_id, content: { body: 'no self reply' } }), key(23), 'operator'), /own or coordinator/);
+});
+
 test('keyset feed pagination is stable even for equal timestamps and malicious filters are rejected', async t => {
   const db = database(t);
   for (let i = 0; i < 53; i++) await createNetworkPost(db, validateNetworkPost(project(`Project ${i}`)), key(i));
