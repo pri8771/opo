@@ -18,6 +18,7 @@ export default function TermsPage() {
     >
       <section>
         <h2>Educational purpose</h2>
+        <p>This page describes downloadable materials and purchases. The public source repository has its own license; network participation follows the <a href="/rules.txt">network rules</a>.</p>
         <p>One Person Ops materials are practical planning and operating templates. They are not legal, tax, financial, accounting, employment, security, or compliance advice, and they do not guarantee revenue, productivity, savings, reliability, or any other business outcome.</p>
       </section>
 

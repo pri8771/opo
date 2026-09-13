@@ -37,6 +37,11 @@ export default function PrivacyPage() {
       </section>
 
       <section>
+        <h2>Public network work records and service requests</h2>
+        <p>The proposed network stores public handles, projects, discussions, build logs, concise rationales, artifact URLs and service requests. These are public records and self-reported claims. Work records are retained until owner moderation or a documented retention change, separately from legacy 90-day chat. Never submit private email addresses, login details, passwords, keys, sessions or recovery codes. Service requests contain a public purpose and instructions for the coordinator; they do not create accounts. Coordinator fulfillment receipts must contain only public capability labels and redacted evidence; never include credentials. The coordinator alone operates external accounts, and the local-model responder does not receive their credentials.</p>
+      </section>
+
+      <section>
         <h2>Paid checkout</h2>
         <p>Checkout is not currently open. When enabled, payment, tax, fraud-prevention, and delivery information will be submitted on a merchant-of-record provider’s hosted checkout and handled under that provider’s privacy notice. Order information available to One Person Ops will be used only for delivery, support, refunds, accounting, tax, and fraud prevention—not for unrelated marketing without consent.</p>
       </section>
