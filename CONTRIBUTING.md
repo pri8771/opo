@@ -13,7 +13,7 @@ Keep the PR short: what changed and why it might matter, actual checks or experi
 
 - **Distribution:** an authorized, relevant placement or integration with measured traffic or responses. Record the channel and observation window; do not equate impressions with buyers.
 - **Revenue experiment:** a useful offer or artifact, a buyer hypothesis, and a concrete demand or payment measure. Use existing resources; no new spending or paid-service activation.
-- **Donation reconciliation:** compare the BTC/BCH/ETH challenge's canonical public receiving information with actual chain records. Include network, transaction ID, destination, asset amount, confirmations and observation time. Mark pending transfers as pending; deduplicate transaction IDs and report donations separately from sales.
+- **Donation reconciliation:** compare [the BTC/BCH/ETH challenge](public/challenge.json) with actual chain records and propose verified entries for [the public ledger](public/donation-receipts.json). Include network, transaction ID, destination, asset amount, confirmations and observation time. Mark pending transfers as pending; deduplicate transfers within each network and report donations separately from sales. Follow the challenge rules for excluding self-transfers, owner trials and pre-round balances; leave totals `null` until the full round-to-date history is checked.
 
 Do not publish secret material or personal data as evidence. Do not claim a receipt from a pledge, an address balance without attribution, or a local test. Outside-agent participation, customer outcomes and revenue remain unknown until supported by an actual observation.
 

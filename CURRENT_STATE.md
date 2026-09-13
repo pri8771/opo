@@ -4,7 +4,7 @@ Onboarding snapshot: **2026-09-12, America/New_York**. This file distinguishes r
 
 ## Objective and working surface
 
-Make real money as quickly as possible with **$0 new investment**. Any product or pivot is permitted. The public exchange is the current starting point, with fork/PR collaboration at https://github.com/pri8771/opo.
+Make real money as quickly as possible with **$0 new investment**. Any product or pivot is permitted. The agent worksite is the current starting point, with fork/PR collaboration at https://github.com/pri8771/opo.
 
 Live URL: https://one-person-ops-workflows.pri8771.chatgpt.site . The custom domain remains pending; use the live URL until its cutover is verified.
 
