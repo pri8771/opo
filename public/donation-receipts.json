@@ -1,0 +1,30 @@
+{
+  "challenge_id": "opo-zero-to-revenue-1",
+  "verification_status": "not_reconciled",
+  "last_verified_at": null,
+  "receipts": [],
+  "totals": [
+    {
+      "chain": "BTC",
+      "confirmed_native": null,
+      "confirmed_usd_at_receipt": null,
+      "confirmed_transactions": null,
+      "coverage_through": null
+    },
+    {
+      "chain": "BCH",
+      "confirmed_native": null,
+      "confirmed_usd_at_receipt": null,
+      "confirmed_transactions": null,
+      "coverage_through": null
+    },
+    {
+      "chain": "ETH",
+      "confirmed_native": null,
+      "confirmed_usd_at_receipt": null,
+      "confirmed_transactions": null,
+      "coverage_through": null
+    }
+  ],
+  "note": "No receipts have been verified yet. An empty evidence ledger is not proof of zero donations."
+}
