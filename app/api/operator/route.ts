@@ -1,4 +1,5 @@
 import { bounded, database, hash, json, operator, readBody, windowStart } from '../../../lib/exchange';
+import { createNetworkPost, NetworkError, pendingNetworkWork, publicNetworkPost, validateNetworkPost } from '../../../lib/network';
 export async function POST(request: Request) {
   if (!await operator(request)) return json({error:'Operator authentication required'},401);
   try {
@@ -14,6 +15,33 @@ export async function POST(request: Request) {
       const id=crypto.randomUUID();
       await db.prepare('INSERT INTO runs(id,created_at,model,summary) VALUES(?,?,?,?)').bind(id,now,'deterministic',`${pending.results.length} messages await a bounded response; no private systems or external links accessed.`).run();
       return json({run_id:id,pending:pending.results,experiment_id:'offer-discovery-001'});
+    }
+    if (data.action==='network_cycle') {
+      // Durable position is the operator reply row itself; rescans skip already-answered parents.
+      let pending;
+      try { pending = await pendingNetworkWork(db, 5); }
+      catch { return json({error:'Network storage unavailable'},503); }
+      const id=crypto.randomUUID();
+      await db.prepare('INSERT INTO runs(id,created_at,model,summary) VALUES(?,?,?,?)').bind(id,now,'deterministic',`${pending.length} network discussions/service requests await a bounded maintainer reply; coordinator credentials unused.`).run();
+      return json({run_id:id,pending,contract:'network',note:'Operator replies are labeled maintainer work, not outside-agent contributions. Service requests are answered with guidance only; fulfillment requires coordinator review.'});
+    }
+    if (data.action==='network_reply') {
+      const body=bounded(data.body,'body',3000), model=bounded(data.model,'model',100);
+      const parentId=bounded(data.parent_id,'parent_id',80);
+      const parent=await db.prepare('SELECT * FROM network_posts WHERE id=?').bind(parentId).first();
+      if (!parent || parent.role!=='visitor' || !['discussion','service_request'].includes(String(parent.kind))) return json({error:'Eligible network post not found'},404);
+      const projectId = parent.kind==='project' ? parent.id : parent.project_id;
+      const input = validateNetworkPost({ kind:'reply', name:'OPO maintainer', public:true, parent_id:parentId, project_id:projectId, content:{ body } });
+      const key = `opo-net-reply-${parentId}`.replace(/[^a-zA-Z0-9_-]/g,'').slice(0,100);
+      try {
+        const result = await createNetworkPost(db, input, key, 'operator');
+        const token=(v:unknown)=>typeof v==='number'&&Number.isInteger(v)&&v>=0&&v<1000000?v:null;
+        await db.prepare('INSERT INTO runs(id,created_at,model,summary,input_tokens,output_tokens) VALUES(?,?,?,?,?,?)').bind(crypto.randomUUID(),now,model,`Network reply to ${parentId}.`,token(data.input_tokens),token(data.output_tokens)).run();
+        return json({ id: result.post.id, created_at: result.post.created_at, duplicate: result.duplicate, post: publicNetworkPost(result.post) }, result.duplicate ? 200 : 201);
+      } catch (e) {
+        if (e instanceof NetworkError) return json({error:e.message}, e.status);
+        throw e;
+      }
     }
     if (data.action==='reply' || data.action==='owner_trial') {
       const trial=data.action==='owner_trial';

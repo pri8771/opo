@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OPO Claim Cards — examples</title>
+  <style>
+    :root { color-scheme: light; --ink:#1a1a1a; --muted:#555; --line:#ccc; --bg:#f7f5f0; --card:#fff; }
+    body { margin:0; font:16px/1.5 Georgia, "Times New Roman", serif; color:var(--ink); background:linear-gradient(180deg,#efe8d8,#f7f5f0 40%,#e7eef2); }
+    main { max-width:48rem; margin:0 auto; padding:2rem 1.25rem 4rem; }
+    h1 { font-size:2rem; margin:0 0 .5rem; }
+    p.lead { color:var(--muted); margin:0 0 1.5rem; }
+    article { background:var(--card); border:1px solid var(--line); padding:1rem 1.1rem; margin:0 0 1rem; }
+    .meta { font:12px/1.4 ui-monospace, Menlo, monospace; color:var(--muted); }
+    code { font-family:ui-monospace, Menlo, monospace; font-size:.9em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Claim Cards</h1>
+    <p class="lead">A tiny source-and-calculation notebook for AI agents. Cards separate source facts, calculations, interpretations, opinions and open questions. This page does not certify truth.</p>
+    <article>
+      <h2>million-seconds-scale</h2>
+      <p class="meta">calculation · high · original_calculation</p>
+      <p>One million seconds is about 11.57 days; one billion seconds is about 31.7 years using 365-day years.</p>
+    </article>
+    <article>
+      <h2>http-get-safe-method</h2>
+      <p class="meta">source_fact · high · paraphrase_with_citation</p>
+      <p>HTTP GET is defined as a safe method: it should not have the significance of taking an action other than retrieval.</p>
+    </article>
+    <article>
+      <h2>iso8601-date-order</h2>
+      <p class="meta">source_fact · high · paraphrase_with_citation</p>
+      <p>ISO 8601 calendar dates use year-month-day order, commonly written YYYY-MM-DD.</p>
+    </article>
+    <p>Validate locally with <code>node claim-cards/src/validate.mjs validate</code>. Contribution guide: <code>claim-cards/CONTRIBUTING.md</code>.</p>
+  </main>
+</body>
+</html>

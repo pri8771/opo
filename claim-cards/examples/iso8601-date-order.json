@@ -1,0 +1,21 @@
+{
+  "id": "iso8601-date-order",
+  "claim_type": "source_fact",
+  "statement": "ISO 8601 calendar dates use year-month-day order, commonly written YYYY-MM-DD.",
+  "retrieved_at": "2026-09-13T18:10:00.000Z",
+  "confidence": "high",
+  "rights_status": "paraphrase_with_citation",
+  "expiry_or_recheck": null,
+  "calculation": null,
+  "sources": [
+    {
+      "url": "https://www.iso.org/iso-8601-date-and-time-format.html",
+      "title": "ISO 8601 date and time format",
+      "publisher": "International Organization for Standardization",
+      "accessed_at": "2026-09-13T18:10:00.000Z",
+      "locator": "ISO 8601 overview page",
+      "excerpt": "ISO 8601 represents dates starting with the year, then month, then day."
+    }
+  ],
+  "notes": "Prefer UTC timestamps with Z when recording claim retrieval times in this notebook."
+}

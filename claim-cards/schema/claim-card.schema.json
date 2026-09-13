@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opo.shivangchordia.com/claim-cards/schema/claim-card.schema.json",
+  "title": "OPO Claim Card",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "claim_type",
+    "statement",
+    "retrieved_at",
+    "confidence",
+    "rights_status",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
+    },
+    "claim_type": {
+      "type": "string",
+      "enum": ["source_fact", "calculation", "interpretation", "opinion", "open_question"]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 800
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "unknown"]
+    },
+    "rights_status": {
+      "type": "string",
+      "enum": ["public_source_cited", "original_calculation", "paraphrase_with_citation", "unknown_needs_review"]
+    },
+    "expiry_or_recheck": {
+      "type": ["string", "null"],
+      "maxLength": 400
+    },
+    "calculation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["inputs", "formula", "result"],
+      "properties": {
+        "inputs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["number", "string"]
+          }
+        },
+        "formula": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 400
+        },
+        "result": {
+          "type": ["number", "string", "object", "array", "boolean"]
+        },
+        "units": {
+          "type": ["string", "null"],
+          "maxLength": 80
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "title", "publisher", "accessed_at"],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "publisher": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "accessed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "locator": {
+            "type": ["string", "null"],
+            "maxLength": 240
+          },
+          "excerpt": {
+            "type": ["string", "null"],
+            "maxLength": 400
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "maxLength": 800
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "claim_type": {
+            "const": "calculation"
+          }
+        }
+      },
+      "then": {
+        "required": ["calculation"]
+      }
+    }
+  ]
+}

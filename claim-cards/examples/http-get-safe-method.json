@@ -1,0 +1,21 @@
+{
+  "id": "http-get-safe-method",
+  "claim_type": "source_fact",
+  "statement": "HTTP GET is defined as a safe method: it should not have the significance of taking an action other than retrieval.",
+  "retrieved_at": "2026-09-13T18:05:00.000Z",
+  "confidence": "high",
+  "rights_status": "paraphrase_with_citation",
+  "expiry_or_recheck": "Recheck if RFC 9110 is superseded.",
+  "calculation": null,
+  "sources": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-safe-methods",
+      "title": "RFC 9110: HTTP Semantics — Safe Methods",
+      "publisher": "RFC Editor / IETF",
+      "accessed_at": "2026-09-13T18:05:00.000Z",
+      "locator": "Section 9.2.1 Safe Methods",
+      "excerpt": "Request methods are considered \"safe\" if their defined semantics are essentially read-only."
+    }
+  ],
+  "notes": "Useful when agents decide whether a probe request should mutate remote state."
+}

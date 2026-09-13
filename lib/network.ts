@@ -62,13 +62,20 @@ export function validateNetworkPost(data: Record<string, unknown>, coordinator =
 export async function networkHash(value: string) {
   return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))), b => b.toString(16).padStart(2, '0')).join('');
 }
-export async function createNetworkPost(db: NetworkDatabase, input: ReturnType<typeof validateNetworkPost>, key: string, coordinator = false, admit: () => Promise<boolean> = async () => true) {
+export type NetworkActor = boolean | 'visitor' | 'coordinator' | 'operator';
+function resolveActor(actor: NetworkActor): 'visitor' | 'coordinator' | 'operator' {
+  if (actor === true || actor === 'coordinator') return 'coordinator';
+  if (actor === 'operator') return 'operator';
+  return 'visitor';
+}
+export async function createNetworkPost(db: NetworkDatabase, input: ReturnType<typeof validateNetworkPost>, key: string, actor: NetworkActor = 'visitor', admit: () => Promise<boolean> = async () => true) {
   if (!/^[a-zA-Z0-9_-]{16,100}$/.test(key)) throw new NetworkError('Idempotency-Key must contain 16–100 letters, digits, underscores or hyphens');
-  const role = coordinator ? 'coordinator' : 'visitor';
+  const role = resolveActor(actor);
+  const name = role === 'coordinator' ? 'OPO coordinator' : role === 'operator' ? 'OPO maintainer' : input.name;
   const digest = await networkHash(`network:${role}:${key}`), payload = JSON.stringify(input.content);
   const prior = () => db.prepare('SELECT * FROM network_posts WHERE idempotency_hash=?').bind(digest).first<NetworkPost>();
   const check = (row: NetworkPost) => {
-    if (row.kind !== input.kind || row.name !== input.name || row.project_id !== input.projectId || row.parent_id !== input.parentId || row.payload !== payload || row.role !== role) throw new NetworkError('Idempotency key already used for different content', 409);
+    if (row.kind !== input.kind || row.name !== name || row.project_id !== input.projectId || row.parent_id !== input.parentId || row.payload !== payload || row.role !== role) throw new NetworkError('Idempotency key already used for different content', 409);
     return row;
   };
   const found = await prior(); if (found) return { post: check(found), duplicate: true };
@@ -79,16 +86,27 @@ export async function createNetworkPost(db: NetworkDatabase, input: ReturnType<t
     const scope = parent.kind === 'project' ? parent.id : parent.project_id;
     if (scope !== input.projectId) throw new NetworkError('Parent belongs to a different project');
     if (input.kind === 'service_review' && parent.kind !== 'service_request') throw new NetworkError('Review target is not a service request');
+    if (role === 'operator' && (parent.role === 'operator' || parent.role === 'coordinator')) throw new NetworkError('Operator does not reply to its own or coordinator records');
   }
   if (!await admit()) throw new NetworkError('Posting limit reached; retry later with the same key', 429);
   const id = crypto.randomUUID(), created = new Date().toISOString();
-  await db.prepare('INSERT INTO network_posts(id,parent_id,project_id,kind,name,role,payload,created_at,idempotency_hash) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(idempotency_hash) DO NOTHING').bind(id, input.parentId, input.projectId, input.kind, input.name, role, payload, created, digest).run();
+  await db.prepare('INSERT INTO network_posts(id,parent_id,project_id,kind,name,role,payload,created_at,idempotency_hash) VALUES(?,?,?,?,?,?,?,?,?) ON CONFLICT(idempotency_hash) DO NOTHING').bind(id, input.parentId, input.projectId, input.kind, name, role, payload, created, digest).run();
   const saved = await prior(); if (!saved) throw new NetworkError('Post not confirmed; retry with the same key', 503);
   return { post: check(saved), duplicate: saved.id !== id };
 }
 export function publicNetworkPost(row: NetworkPost) {
   const { idempotency_hash: _privateHash, payload, ...rest } = row;
-  return { ...rest, content: JSON.parse(payload), identity: row.role === 'coordinator' ? 'Coordinator-authenticated record; never include account details or credentials' : 'Self-reported; not verified agent identity or completed work' };
+  const identity = row.role === 'coordinator'
+    ? 'Coordinator-authenticated record; never include account details or credentials'
+    : row.role === 'operator'
+      ? 'Maintainer operator reply; not an outside-agent contribution and never a credential grant'
+      : 'Self-reported; not verified agent identity or completed work';
+  return { ...rest, content: JSON.parse(payload), identity };
+}
+export async function pendingNetworkWork(db: NetworkDatabase, limit = 5) {
+  const capped = Math.min(Math.max(Number(limit) || 5, 1), 5);
+  const rows = await db.prepare(`SELECT * FROM network_posts p WHERE p.kind IN ('discussion','service_request') AND p.role='visitor' AND NOT EXISTS (SELECT 1 FROM network_posts r WHERE r.parent_id=p.id AND r.role='operator' AND r.kind='reply') ORDER BY p.created_at ASC, p.id ASC LIMIT ?`).bind(capped).all<NetworkPost>();
+  return rows.results.map(publicNetworkPost);
 }
 export async function networkFeed(db: NetworkDatabase, url: URL) {
   const clauses: string[] = [], params: unknown[] = [];
