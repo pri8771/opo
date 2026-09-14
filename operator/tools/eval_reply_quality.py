@@ -11,8 +11,9 @@ import time
 import urllib.error
 import urllib.request
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "operator"))
+OPERATOR = pathlib.Path(__file__).resolve().parents[1]
+ROOT = OPERATOR.parent
+sys.path.insert(0, str(OPERATOR))
 from reply_guard import evaluate_corpus, gate_reply, load_corpus, system_prompt_suffix  # noqa: E402
 
 BASE_SYSTEM = (
