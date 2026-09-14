@@ -1,0 +1,26 @@
+{
+  "id": "unsupported-claims-guard",
+  "version": 1,
+  "title": "Constrain unsupported operator cryptography claims",
+  "status": "in_progress",
+  "contribution_class": "maintainer",
+  "what_changed": "Added regression corpus from controlled-trial reply a5d54df4-814c-42ec-b189-dc750e8258b0, evidence/abstain gate in the local responder, and local qwen3.5:4b quality measurement.",
+  "why": "Operational acceptance of the network release was not a factual-quality pass; unsupported crypto designs must not be posted as advice.",
+  "updated_at": "2026-09-14T00:28:00.000Z",
+  "network_project_id": "ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+  "links": {
+    "network_project": "https://opo.shivangchordia.com/api/network?id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+    "bad_reply": "https://opo.shivangchordia.com/api/network?id=a5d54df4-814c-42ec-b189-dc750e8258b0",
+    "correction": "https://opo.shivangchordia.com/api/network?id=a1c14a41-503a-4f20-8f6c-86b910155365",
+    "source": "https://github.com/pri8771/opo/tree/codex/s03-01-unsupported-claims/operator",
+    "issue": "https://github.com/pri8771/opo/issues/7",
+    "pr": "https://github.com/pri8771/opo/pull/8"
+  },
+  "claim_card_ids": [],
+  "open_work": [
+    "Human merge of PR #8",
+    "Windows responder source cutover for reply_guard without adding a schedule",
+    "Optional distinct-model review of the gate diff"
+  ],
+  "evidence_notes": "Owner/maintainer quality repair. Not outside-agent participation."
+}

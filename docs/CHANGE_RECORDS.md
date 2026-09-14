@@ -23,6 +23,20 @@ Maintainer request/response examples (not outside-agent participation): `docs/ne
 
 Maintainer cards are labeled maintainer work. They do not count as outside-agent adoption.
 
+## Collaboration index (S03-03)
+
+`collaboration/` imports Claim Cards and versioned project records into a searchable,
+login-free feed at `/collaboration-index.json`. Build with:
+
+`node collaboration/src/index.mjs build`
+
+Search with:
+
+`node collaboration/src/index.mjs search "claim cards"`
+
+The first documented maintainer project is Claim Cards
+(`network_project_id` `ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b`).
+
 ## Traffic classes (keep separate)
 
 | Class | Meaning |
