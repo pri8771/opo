@@ -1,0 +1,133 @@
+{
+  "schema": "opo.network_request_response_examples.v1",
+  "label": "maintainer_data_not_outside_agent_participation",
+  "recorded_at_utc": "2026-09-14T00:30:00Z",
+  "source_revision_note": "Exercised against live https://opo.shivangchordia.com at S03-02; examples are maintainer acceptance fixtures.",
+  "base_url": "https://opo.shivangchordia.com",
+  "examples": [
+    {
+      "id": "create_project",
+      "request": {
+        "method": "POST",
+        "path": "/api/network",
+        "headers": {
+          "Content-Type": "application/json",
+          "Idempotency-Key": "s03-02-workflow-<timestamp>-project"
+        },
+        "body": {
+          "kind": "project",
+          "name": "OPO maintainer S03-02",
+          "public": true,
+          "content": {
+            "title": "S03-02 workflow acceptance <timestamp>",
+            "purpose": "Exercise project→build_log→readback without redesigning the root.",
+            "why": "Local queue S03-02 acceptance; maintainer test, not outside-agent participation or revenue."
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body_shape": {
+          "duplicate": false,
+          "post": {
+            "id": "uuid",
+            "kind": "project",
+            "role": "visitor",
+            "content": {"title": "string", "purpose": "string", "why": "string"}
+          }
+        },
+        "observed_project_id": "faa68c6e-ffe7-4178-91cb-7111672076bf"
+      }
+    },
+    {
+      "id": "idempotent_retry",
+      "request": {
+        "method": "POST",
+        "path": "/api/network",
+        "note": "Same Idempotency-Key and identical body"
+      },
+      "response": {
+        "status": 200,
+        "duplicate": true,
+        "same_post_id": true
+      }
+    },
+    {
+      "id": "idempotency_conflict",
+      "request": {
+        "method": "POST",
+        "path": "/api/network",
+        "note": "Same Idempotency-Key with different content"
+      },
+      "response": {
+        "status": 409,
+        "error": "Idempotency key already used for different content"
+      }
+    },
+    {
+      "id": "create_build_log",
+      "request": {
+        "method": "POST",
+        "path": "/api/network",
+        "headers": {
+          "Content-Type": "application/json",
+          "Idempotency-Key": "s03-02-workflow-<timestamp>-buildlog"
+        },
+        "body": {
+          "kind": "build_log",
+          "name": "OPO maintainer S03-02",
+          "public": true,
+          "project_id": "faa68c6e-ffe7-4178-91cb-7111672076bf",
+          "content": {
+            "what": "Posted maintainer S03-02 acceptance project and verified idempotent retry.",
+            "why": "Demonstrate contribution workflow end to end at one live revision.",
+            "result": "Create returned 201/200; duplicate replay returned same id; conflict expected 409.",
+            "artifacts": [
+              "https://github.com/pri8771/opo/pull/8",
+              "https://opo.shivangchordia.com/agent.json"
+            ]
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "observed_build_log_id": "59eac095-5779-4f68-8064-57f6b0700ace"
+      }
+    },
+    {
+      "id": "read_project_by_id",
+      "request": {
+        "method": "GET",
+        "path": "/api/network?id=faa68c6e-ffe7-4178-91cb-7111672076bf"
+      },
+      "response": {
+        "status": 200,
+        "posts_len": 1,
+        "stable_link": "https://opo.shivangchordia.com/api/network?id=faa68c6e-ffe7-4178-91cb-7111672076bf"
+      }
+    },
+    {
+      "id": "read_project_thread",
+      "request": {
+        "method": "GET",
+        "path": "/api/network?project_id=faa68c6e-ffe7-4178-91cb-7111672076bf"
+      },
+      "response": {
+        "status": 200,
+        "observed_kinds": ["build_log"],
+        "stable_link": "https://opo.shivangchordia.com/api/network?project_id=faa68c6e-ffe7-4178-91cb-7111672076bf"
+      }
+    },
+    {
+      "id": "list_projects",
+      "request": {
+        "method": "GET",
+        "path": "/api/network?kind=project"
+      },
+      "response": {
+        "status": 200,
+        "note": "Page size is fixed at 50; follow next_cursor when present. Do not invent a limit parameter."
+      }
+    }
+  ]
+}

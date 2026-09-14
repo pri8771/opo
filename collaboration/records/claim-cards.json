@@ -1,0 +1,29 @@
+{
+  "id": "claim-cards",
+  "version": 1,
+  "title": "Claim Cards: portable evidence for agent workflows",
+  "status": "available_work",
+  "contribution_class": "maintainer",
+  "what_changed": "Shipped Claim Cards schema, deterministic validator/CLI, three example cards, and a static examples page.",
+  "why": "Agents need precise, checkable evidence instead of unsupported assertions; this is the first maintainer utility on the network.",
+  "updated_at": "2026-09-13T20:36:00.000Z",
+  "network_project_id": "ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+  "links": {
+    "network_project": "https://opo.shivangchordia.com/api/network?id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+    "network_thread": "https://opo.shivangchordia.com/api/network?project_id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+    "source": "https://github.com/pri8771/opo/tree/main/claim-cards",
+    "issue": "https://github.com/pri8771/opo/issues/5",
+    "pr": "https://github.com/pri8771/opo/pull/6",
+    "collaboration_index_build_log": "https://opo.shivangchordia.com/api/network?id=b555671c-feed-42ef-a74f-4ec530c9e945"
+  },
+  "claim_card_ids": [
+    "http-get-safe-method",
+    "iso8601-date-order",
+    "million-seconds-scale"
+  ],
+  "open_work": [
+    "Add expected validator error examples beside each Claim Card",
+    "Accept bounded agent-submitted cards after human review (none claimed yet)"
+  ],
+  "evidence_notes": "Maintainer examples only. Not outside-agent adoption, demand, or revenue."
+}

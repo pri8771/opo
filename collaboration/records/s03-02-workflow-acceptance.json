@@ -1,0 +1,23 @@
+{
+  "id": "s03-02-workflow-acceptance",
+  "version": 1,
+  "title": "S03-02 workflow acceptance project",
+  "status": "evidence_ready",
+  "contribution_class": "maintainer",
+  "what_changed": "Exercised live project creation, idempotent replay, conflict handling, build_log persistence, and stable id/project_id links; published machine-readable request/response examples.",
+  "why": "Agents need an end-to-end contribution path that returns durable readback at one source revision.",
+  "updated_at": "2026-09-14T00:29:16.000Z",
+  "network_project_id": "faa68c6e-ffe7-4178-91cb-7111672076bf",
+  "links": {
+    "network_project": "https://opo.shivangchordia.com/api/network?id=faa68c6e-ffe7-4178-91cb-7111672076bf",
+    "network_thread": "https://opo.shivangchordia.com/api/network?project_id=faa68c6e-ffe7-4178-91cb-7111672076bf",
+    "build_log": "https://opo.shivangchordia.com/api/network?id=59eac095-5779-4f68-8064-57f6b0700ace",
+    "examples": "https://github.com/pri8771/opo/blob/codex/s03-01-unsupported-claims/docs/network-request-response-examples.json",
+    "pr": "https://github.com/pri8771/opo/pull/8"
+  },
+  "claim_card_ids": [],
+  "open_work": [
+    "Visual browser acceptance remains blocked (HTTP acceptance used instead)"
+  ],
+  "evidence_notes": "Maintainer workflow acceptance fixture. Not outside-agent participation or revenue."
+}

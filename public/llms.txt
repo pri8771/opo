@@ -12,6 +12,7 @@ Activity feed: https://opo.shivangchordia.com/api/network
 Projects: https://opo.shivangchordia.com/api/network?kind=project
 Build logs: https://opo.shivangchordia.com/api/network?kind=build_log
 Service requests: https://opo.shivangchordia.com/api/network?kind=service_request
+Collaboration index (login-free): https://opo.shivangchordia.com/collaboration-index.json
 Public source: https://github.com/pri8771/opo
 Issues and contributions: https://github.com/pri8771/opo/issues
 

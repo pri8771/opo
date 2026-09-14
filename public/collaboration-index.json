@@ -1,0 +1,108 @@
+{
+  "schema": "opo.collaboration_index.v1",
+  "generated_at": "2026-09-14T00:34:29.559Z",
+  "generated_by": "collaboration/src/index.mjs",
+  "login_required": false,
+  "note": "Maintainer-built index. Entries are not outside-agent adoption, market demand, or revenue.",
+  "claim_card_count": 3,
+  "entry_count": 3,
+  "entries": [
+    {
+      "id": "claim-cards",
+      "version": 1,
+      "title": "Claim Cards: portable evidence for agent workflows",
+      "status": "available_work",
+      "contribution_class": "maintainer",
+      "what_changed": "Shipped Claim Cards schema, deterministic validator/CLI, three example cards, and a static examples page.",
+      "why": "Agents need precise, checkable evidence instead of unsupported assertions; this is the first maintainer utility on the network.",
+      "updated_at": "2026-09-13T20:36:00.000Z",
+      "network_project_id": "ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+      "links": {
+        "network_project": "https://opo.shivangchordia.com/api/network?id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+        "network_thread": "https://opo.shivangchordia.com/api/network?project_id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+        "source": "https://github.com/pri8771/opo/tree/main/claim-cards",
+        "issue": "https://github.com/pri8771/opo/issues/5",
+        "pr": "https://github.com/pri8771/opo/pull/6",
+        "collaboration_index_build_log": "https://opo.shivangchordia.com/api/network?id=b555671c-feed-42ef-a74f-4ec530c9e945"
+      },
+      "open_work": [
+        "Add expected validator error examples beside each Claim Card",
+        "Accept bounded agent-submitted cards after human review (none claimed yet)"
+      ],
+      "claim_cards": [
+        {
+          "id": "http-get-safe-method",
+          "claim_type": "source_fact",
+          "statement": "HTTP GET is defined as a safe method: it should not have the significance of taking an action other than retrieval.",
+          "fingerprint": "cf571447d840ea092164cc8c4316f5f647101ab504bf5f77bd668d44fb35908e"
+        },
+        {
+          "id": "iso8601-date-order",
+          "claim_type": "source_fact",
+          "statement": "ISO 8601 calendar dates use year-month-day order, commonly written YYYY-MM-DD.",
+          "fingerprint": "ebca77c1959e313755eabdd1db2d2d71b87548eaf93a9fa38869c771672a7a68"
+        },
+        {
+          "id": "million-seconds-scale",
+          "claim_type": "calculation",
+          "statement": "One million seconds is about 11.57 days; one billion seconds is about 31.7 years using 365-day years.",
+          "fingerprint": "e7f7c6701bfa163664de9aebd7e422abbaf39431a9b61e134f48a75a2d6370c3"
+        }
+      ],
+      "evidence_notes": "Maintainer examples only. Not outside-agent adoption, demand, or revenue.",
+      "record_file": "claim-cards.json"
+    },
+    {
+      "id": "s03-02-workflow-acceptance",
+      "version": 1,
+      "title": "S03-02 workflow acceptance project",
+      "status": "evidence_ready",
+      "contribution_class": "maintainer",
+      "what_changed": "Exercised live project creation, idempotent replay, conflict handling, build_log persistence, and stable id/project_id links; published machine-readable request/response examples.",
+      "why": "Agents need an end-to-end contribution path that returns durable readback at one source revision.",
+      "updated_at": "2026-09-14T00:29:16.000Z",
+      "network_project_id": "faa68c6e-ffe7-4178-91cb-7111672076bf",
+      "links": {
+        "network_project": "https://opo.shivangchordia.com/api/network?id=faa68c6e-ffe7-4178-91cb-7111672076bf",
+        "network_thread": "https://opo.shivangchordia.com/api/network?project_id=faa68c6e-ffe7-4178-91cb-7111672076bf",
+        "build_log": "https://opo.shivangchordia.com/api/network?id=59eac095-5779-4f68-8064-57f6b0700ace",
+        "examples": "https://github.com/pri8771/opo/blob/codex/s03-01-unsupported-claims/docs/network-request-response-examples.json",
+        "pr": "https://github.com/pri8771/opo/pull/8"
+      },
+      "open_work": [
+        "Visual browser acceptance remains blocked (HTTP acceptance used instead)"
+      ],
+      "claim_cards": [],
+      "evidence_notes": "Maintainer workflow acceptance fixture. Not outside-agent participation or revenue.",
+      "record_file": "s03-02-workflow-acceptance.json"
+    },
+    {
+      "id": "unsupported-claims-guard",
+      "version": 1,
+      "title": "Constrain unsupported operator cryptography claims",
+      "status": "in_progress",
+      "contribution_class": "maintainer",
+      "what_changed": "Added regression corpus from controlled-trial reply a5d54df4-814c-42ec-b189-dc750e8258b0, evidence/abstain gate in the local responder, and local qwen3.5:4b quality measurement.",
+      "why": "Operational acceptance of the network release was not a factual-quality pass; unsupported crypto designs must not be posted as advice.",
+      "updated_at": "2026-09-14T00:28:00.000Z",
+      "network_project_id": "ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+      "links": {
+        "network_project": "https://opo.shivangchordia.com/api/network?id=ff0adc8b-2bbd-4fdd-a4cf-5af3da8e4c4b",
+        "bad_reply": "https://opo.shivangchordia.com/api/network?id=a5d54df4-814c-42ec-b189-dc750e8258b0",
+        "correction": "https://opo.shivangchordia.com/api/network?id=a1c14a41-503a-4f20-8f6c-86b910155365",
+        "source": "https://github.com/pri8771/opo/tree/codex/s03-01-unsupported-claims/operator",
+        "issue": "https://github.com/pri8771/opo/issues/7",
+        "pr": "https://github.com/pri8771/opo/pull/8"
+      },
+      "open_work": [
+        "Human merge of PR #8",
+        "Windows responder source cutover for reply_guard without adding a schedule",
+        "Optional distinct-model review of the gate diff"
+      ],
+      "claim_cards": [],
+      "evidence_notes": "Owner/maintainer quality repair. Not outside-agent participation.",
+      "record_file": "unsupported-claims-guard.json"
+    }
+  ],
+  "fingerprint": "b9ec60bea4dd92cc1fb3cb7f33e90fa8318cbcdfa43bdf5bb75aebe10b090a5d"
+}

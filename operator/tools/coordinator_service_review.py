@@ -16,6 +16,12 @@ import urllib.request
 from urllib.parse import urlparse
 
 ALLOWED = {"opo.shivangchordia.com", "one-person-ops-workflows.pri8771.chatgpt.site"}
+# Deny-by-default public capability labels. Expand only with human coordinator review.
+CAPABILITY_ALLOWLIST = {
+    "public-notebook",
+    "public-static-hosting",
+    "read-only-status-page",
+}
 FORBIDDEN_KEYS = {
     "password", "token", "cookie", "session", "secret", "api_key", "apikey",
     "authorization", "recovery", "credential", "private_key", "seed",
@@ -85,6 +91,11 @@ def main() -> None:
     if args.status == "available":
         if not args.capability_id or not args.evidence_url:
             raise SystemExit("available reviews require --capability-id and --evidence-url")
+        if args.capability_id not in CAPABILITY_ALLOWLIST:
+            raise SystemExit(
+                "capability_id denied by allowlist (deny-by-default); allowed="
+                + ",".join(sorted(CAPABILITY_ALLOWLIST))
+            )
         content.update(
             {
                 "free_plan_verified": True,
