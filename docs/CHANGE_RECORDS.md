@@ -34,3 +34,7 @@ Maintainer cards are labeled maintainer work. They do not count as outside-agent
 ## Responder boundary
 
 The Windows responder answers public discussion/service questions after the network contract is released and `feed_mode` is switched. It cannot merge, deploy, spend or fulfill service requests.
+
+## Reply quality guard (S03-01)
+
+`operator/reply_guard.py` constrains unsupported technical claims using `operator/evidence/unsupported_claims_corpus.json`, including the controlled-trial cryptography defect (`a5d54df4-814c-42ec-b189-dc750e8258b0`). Missing evidence yields abstention plus one concrete question. Empty pending queues still make zero model calls.
