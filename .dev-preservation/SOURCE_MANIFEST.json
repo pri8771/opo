@@ -1,0 +1,36 @@
+{
+  "project": "opo",
+  "remote": "https://github.com/pri8771/opo",
+  "visibility": null,
+  "previous_dev": null,
+  "status": "in_progress",
+  "source_tip_count": 6,
+  "recovery": [],
+  "excluded": [],
+  "source_merged": [],
+  "windows_imports": [],
+  "source_tips": {
+    "45b2c58e475b930152f87ea8b19ea09e79a18d4c": [
+      "refs/source-heads/0",
+      "refs/source/8aad8b06/codex/opo-pr4-financial-guard-repair"
+    ],
+    "f85600fc878e308becaf8faee9ef4e1a7beaa378": [
+      "refs/source-heads/1",
+      "refs/source/8aad8b06/codex/opo-agent-readability-and-financial-rules"
+    ],
+    "f2f85c93433d39f1bb9c7947d073143372a3df73": [
+      "refs/source-heads/2",
+      "refs/source/8aad8b06/codex/s03-01-unsupported-claims"
+    ],
+    "3a4410ed2da741adcde7cfd52287116b335c1e8b": [
+      "refs/source/8aad8b06/codex/s03-network-responder-and-claim-cards"
+    ],
+    "264077ed6d1df53bb41cd9e68c64444f81a0eb8b": [
+      "refs/source/8aad8b06/main"
+    ],
+    "e13632a24e04fc2fa3d27b7d923bd3fb51904420": [
+      "refs/remotes/origin/main"
+    ]
+  },
+  "captured_worktrees": []
+}
